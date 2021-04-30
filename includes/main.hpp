@@ -1,6 +1,2 @@
-#include "COASt.hpp"
-
-using namespace std;
-
-
-int prolog();
+#include "launchScreen.hpp"
+#include "gameScreen.hpp"

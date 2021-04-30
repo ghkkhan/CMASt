@@ -1,13 +1,6 @@
-#pragma once
-
-#include <QWidget>
-#include <QApplication>
-#include <QPushButton>
-#include <QLabel>
-#include <QTextEdit>
+#include "qtIncludes.hpp"
 #include <iostream>
-
-
+#include <fstream>
 
 class Starter : public QWidget {
     Q_OBJECT // must be used because we'll be building our own "slots"
@@ -30,3 +23,4 @@ private:
     int sectionMarker;
     int checkPointMarker;
 };
+

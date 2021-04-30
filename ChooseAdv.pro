@@ -14,7 +14,15 @@ INCLUDEPATH += .
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += includes/launchScreen.hpp
-SOURCES += src/main.cpp src/launchScreen.cpp 
+# HEADER-FILES
+HEADERS += includes/main.hpp 
+HEADERS += includes/qtIncludes.hpp
+HEADERS += includes/launchScreen.hpp 
+HEADERS += includes/gameScreen.hpp
+
+# SOURCE-FILES
+SOURCES += src/main.cpp 
+SOURCES += src/launchScreen.cpp 
+SOURCES += src/gameScreen.cpp
 
 QT += widgets
