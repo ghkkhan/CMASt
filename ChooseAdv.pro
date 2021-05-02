@@ -19,10 +19,12 @@ HEADERS += includes/main.hpp
 HEADERS += includes/qtIncludes.hpp
 HEADERS += includes/launchScreen.hpp 
 HEADERS += includes/gameScreen.hpp
+HEADERS += includes/COASt.hpp
 
 # SOURCE-FILES
 SOURCES += src/main.cpp 
 SOURCES += src/launchScreen.cpp 
 SOURCES += src/gameScreen.cpp
+SOURCES += src/COASt.cpp
 
 QT += widgets

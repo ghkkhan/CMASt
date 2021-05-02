@@ -54,11 +54,13 @@ OBJECTS_DIR   = ./
 
 SOURCES       = src/main.cpp \
 		src/launchScreen.cpp \
-		src/gameScreen.cpp moc_launchScreen.cpp \
+		src/gameScreen.cpp \
+		src/COASt.cpp moc_launchScreen.cpp \
 		moc_gameScreen.cpp
 OBJECTS       = main.o \
 		launchScreen.o \
 		gameScreen.o \
+		COASt.o \
 		moc_launchScreen.o \
 		moc_gameScreen.o
 DIST          = /usr/local/qt5/mkspecs/features/spec_pre.prf \
@@ -278,9 +280,11 @@ DIST          = /usr/local/qt5/mkspecs/features/spec_pre.prf \
 		ChooseAdv.pro includes/main.hpp \
 		includes/qtIncludes.hpp \
 		includes/launchScreen.hpp \
-		includes/gameScreen.hpp src/main.cpp \
+		includes/gameScreen.hpp \
+		includes/COASt.hpp src/main.cpp \
 		src/launchScreen.cpp \
-		src/gameScreen.cpp
+		src/gameScreen.cpp \
+		src/COASt.cpp
 QMAKE_TARGET  = ChooseAdv
 DESTDIR       = 
 TARGET        = ChooseAdv
@@ -738,8 +742,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents includes/main.hpp includes/qtIncludes.hpp includes/launchScreen.hpp includes/gameScreen.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/launchScreen.cpp src/gameScreen.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents includes/main.hpp includes/qtIncludes.hpp includes/launchScreen.hpp includes/gameScreen.hpp includes/COASt.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/launchScreen.cpp src/gameScreen.cpp src/COASt.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1048,6 +1052,8 @@ moc_gameScreen.cpp: includes/gameScreen.hpp \
 		/usr/local/qt5/include/QtWidgets/QMessageBox \
 		/usr/local/qt5/include/QtWidgets/qmessagebox.h \
 		/usr/local/qt5/include/QtWidgets/qdialog.h \
+		includes/COASt.hpp \
+		/usr/local/qt5/include/QtGui/QTextCursor \
 		moc_predefs.h \
 		/usr/local/qt5/bin/moc
 	/usr/local/qt5/bin/moc $(DEFINES) --include '/home/huzaifa/Github Stuff/ChooseAdv/moc_predefs.h' -I/usr/local/qt5/mkspecs/linux-g++ -I'/home/huzaifa/Github Stuff/ChooseAdv' -I'/home/huzaifa/Github Stuff/ChooseAdv' -I/usr/local/qt5/include -I/usr/local/qt5/include/QtWidgets -I/usr/local/qt5/include/QtGui -I/usr/local/qt5/include/QtCore -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed -I/usr/include includes/gameScreen.hpp -o moc_gameScreen.cpp
@@ -1204,7 +1210,9 @@ main.o: src/main.cpp includes/main.hpp \
 		/usr/local/qt5/include/QtWidgets/QMessageBox \
 		/usr/local/qt5/include/QtWidgets/qmessagebox.h \
 		/usr/local/qt5/include/QtWidgets/qdialog.h \
-		includes/gameScreen.hpp
+		includes/gameScreen.hpp \
+		includes/COASt.hpp \
+		/usr/local/qt5/include/QtGui/QTextCursor
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 launchScreen.o: src/launchScreen.cpp includes/launchScreen.hpp \
@@ -1478,8 +1486,13 @@ gameScreen.o: src/gameScreen.cpp includes/gameScreen.hpp \
 		/usr/local/qt5/include/QtWidgets/qboxlayout.h \
 		/usr/local/qt5/include/QtWidgets/QMessageBox \
 		/usr/local/qt5/include/QtWidgets/qmessagebox.h \
-		/usr/local/qt5/include/QtWidgets/qdialog.h
+		/usr/local/qt5/include/QtWidgets/qdialog.h \
+		includes/COASt.hpp \
+		/usr/local/qt5/include/QtGui/QTextCursor
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gameScreen.o src/gameScreen.cpp
+
+COASt.o: src/COASt.cpp includes/COASt.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o COASt.o src/COASt.cpp
 
 moc_launchScreen.o: moc_launchScreen.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_launchScreen.o moc_launchScreen.cpp

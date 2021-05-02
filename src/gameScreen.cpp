@@ -1,7 +1,7 @@
 #include "../includes/gameScreen.hpp"
 
 bool tiping = false;
-BaseScreen::BaseScreen (QWidget *parent) :QWidget(parent) {
+BaseScreen::BaseScreen (QWidget *parent) : QWidget(parent) {
 
     // setting up the buttons...
     menuButton = new QPushButton( "Main Menu", this );
@@ -39,8 +39,8 @@ BaseScreen::BaseScreen (QWidget *parent) :QWidget(parent) {
 }   
 
 void BaseScreen::OnGoButton() {
-    QString str = "Hello, you clicked a button!";
-    // put cursor at the end of the textbox;;;
+    QString str = "\nHello, you clicked a button!";
+    // QString str = QString::fromStdString(profile.getNextLine());
     if (!tiping) {
         tiping = true;
         slowAppend(str, 100);
@@ -54,10 +54,10 @@ void BaseScreen::slowAppend(const QString &s, const int & speed) {
     QTextCursor curser = mainText -> textCursor();
     curser.movePosition(QTextCursor::End);
     mainText -> setTextCursor(curser);
-    
+    //slowly write to the textedit    
     for (int i = 0; i < s.size(); i++) {
         mainText -> insertPlainText(s[i]);
-        qApp->processEvents();
+        qApp->processEvents(); // this line forces the QT window to refresh and show the added character...
         usleep(MS * speed);
     }
 }
