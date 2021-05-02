@@ -52,17 +52,17 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = src/main.cpp \
-		src/launchScreen.cpp \
+SOURCES       = src/COASt.cpp \
 		src/gameScreen.cpp \
-		src/COASt.cpp moc_launchScreen.cpp \
-		moc_gameScreen.cpp
-OBJECTS       = main.o \
-		launchScreen.o \
+		src/launchScreen.cpp \
+		src/main.cpp moc_gameScreen.cpp \
+		moc_launchScreen.cpp
+OBJECTS       = COASt.o \
 		gameScreen.o \
-		COASt.o \
-		moc_launchScreen.o \
-		moc_gameScreen.o
+		launchScreen.o \
+		main.o \
+		moc_gameScreen.o \
+		moc_launchScreen.o
 DIST          = /usr/local/qt5/mkspecs/features/spec_pre.prf \
 		/usr/local/qt5/mkspecs/common/unix.conf \
 		/usr/local/qt5/mkspecs/common/linux.conf \
@@ -277,14 +277,14 @@ DIST          = /usr/local/qt5/mkspecs/features/spec_pre.prf \
 		/usr/local/qt5/mkspecs/features/exceptions.prf \
 		/usr/local/qt5/mkspecs/features/yacc.prf \
 		/usr/local/qt5/mkspecs/features/lex.prf \
-		ChooseAdv.pro includes/main.hpp \
-		includes/qtIncludes.hpp \
-		includes/launchScreen.hpp \
+		ChooseAdv.pro includes/COASt.hpp \
 		includes/gameScreen.hpp \
-		includes/COASt.hpp src/main.cpp \
-		src/launchScreen.cpp \
+		includes/launchScreen.hpp \
+		includes/main.hpp \
+		includes/qtIncludes.hpp src/COASt.cpp \
 		src/gameScreen.cpp \
-		src/COASt.cpp
+		src/launchScreen.cpp \
+		src/main.cpp
 QMAKE_TARGET  = ChooseAdv
 DESTDIR       = 
 TARGET        = ChooseAdv
@@ -742,8 +742,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents includes/main.hpp includes/qtIncludes.hpp includes/launchScreen.hpp includes/gameScreen.hpp includes/COASt.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/launchScreen.cpp src/gameScreen.cpp src/COASt.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents includes/COASt.hpp includes/gameScreen.hpp includes/launchScreen.hpp includes/main.hpp includes/qtIncludes.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/COASt.cpp src/gameScreen.cpp src/launchScreen.cpp src/main.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -775,148 +775,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/local/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -dM -E -o moc_predefs.h /usr/local/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_launchScreen.cpp moc_gameScreen.cpp
+compiler_moc_header_make_all: moc_gameScreen.cpp moc_launchScreen.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_launchScreen.cpp moc_gameScreen.cpp
-moc_launchScreen.cpp: includes/launchScreen.hpp \
-		includes/qtIncludes.hpp \
-		/usr/local/qt5/include/QtWidgets/QWidget \
-		/usr/local/qt5/include/QtWidgets/qwidget.h \
-		/usr/local/qt5/include/QtWidgets/qtwidgetsglobal.h \
-		/usr/local/qt5/include/QtGui/qtguiglobal.h \
-		/usr/local/qt5/include/QtCore/qglobal.h \
-		/usr/local/qt5/include/QtCore/qconfig-bootstrapped.h \
-		/usr/local/qt5/include/QtCore/qconfig.h \
-		/usr/local/qt5/include/QtCore/qtcore-config.h \
-		/usr/local/qt5/include/QtCore/qsystemdetection.h \
-		/usr/local/qt5/include/QtCore/qprocessordetection.h \
-		/usr/local/qt5/include/QtCore/qcompilerdetection.h \
-		/usr/local/qt5/include/QtCore/qtypeinfo.h \
-		/usr/local/qt5/include/QtCore/qsysinfo.h \
-		/usr/local/qt5/include/QtCore/qlogging.h \
-		/usr/local/qt5/include/QtCore/qflags.h \
-		/usr/local/qt5/include/QtCore/qatomic.h \
-		/usr/local/qt5/include/QtCore/qbasicatomic.h \
-		/usr/local/qt5/include/QtCore/qatomic_bootstrap.h \
-		/usr/local/qt5/include/QtCore/qgenericatomic.h \
-		/usr/local/qt5/include/QtCore/qatomic_cxx11.h \
-		/usr/local/qt5/include/QtCore/qatomic_msvc.h \
-		/usr/local/qt5/include/QtCore/qglobalstatic.h \
-		/usr/local/qt5/include/QtCore/qmutex.h \
-		/usr/local/qt5/include/QtCore/qnumeric.h \
-		/usr/local/qt5/include/QtCore/qversiontagging.h \
-		/usr/local/qt5/include/QtGui/qtgui-config.h \
-		/usr/local/qt5/include/QtWidgets/qtwidgets-config.h \
-		/usr/local/qt5/include/QtGui/qwindowdefs.h \
-		/usr/local/qt5/include/QtCore/qobjectdefs.h \
-		/usr/local/qt5/include/QtCore/qnamespace.h \
-		/usr/local/qt5/include/QtCore/qobjectdefs_impl.h \
-		/usr/local/qt5/include/QtGui/qwindowdefs_win.h \
-		/usr/local/qt5/include/QtCore/qobject.h \
-		/usr/local/qt5/include/QtCore/qstring.h \
-		/usr/local/qt5/include/QtCore/qchar.h \
-		/usr/local/qt5/include/QtCore/qbytearray.h \
-		/usr/local/qt5/include/QtCore/qrefcount.h \
-		/usr/local/qt5/include/QtCore/qarraydata.h \
-		/usr/local/qt5/include/QtCore/qstringliteral.h \
-		/usr/local/qt5/include/QtCore/qstringalgorithms.h \
-		/usr/local/qt5/include/QtCore/qstringview.h \
-		/usr/local/qt5/include/QtCore/qstringbuilder.h \
-		/usr/local/qt5/include/QtCore/qlist.h \
-		/usr/local/qt5/include/QtCore/qalgorithms.h \
-		/usr/local/qt5/include/QtCore/qiterator.h \
-		/usr/local/qt5/include/QtCore/qhashfunctions.h \
-		/usr/local/qt5/include/QtCore/qpair.h \
-		/usr/local/qt5/include/QtCore/qvector.h \
-		/usr/local/qt5/include/QtCore/qcontainertools_impl.h \
-		/usr/local/qt5/include/QtCore/qpoint.h \
-		/usr/local/qt5/include/QtCore/qbytearraylist.h \
-		/usr/local/qt5/include/QtCore/qstringlist.h \
-		/usr/local/qt5/include/QtCore/qregexp.h \
-		/usr/local/qt5/include/QtCore/qstringmatcher.h \
-		/usr/local/qt5/include/QtCore/qcoreevent.h \
-		/usr/local/qt5/include/QtCore/qscopedpointer.h \
-		/usr/local/qt5/include/QtCore/qmetatype.h \
-		/usr/local/qt5/include/QtCore/qvarlengtharray.h \
-		/usr/local/qt5/include/QtCore/qcontainerfwd.h \
-		/usr/local/qt5/include/QtCore/qobject_impl.h \
-		/usr/local/qt5/include/QtCore/qmargins.h \
-		/usr/local/qt5/include/QtGui/qpaintdevice.h \
-		/usr/local/qt5/include/QtCore/qrect.h \
-		/usr/local/qt5/include/QtCore/qsize.h \
-		/usr/local/qt5/include/QtGui/qpalette.h \
-		/usr/local/qt5/include/QtGui/qcolor.h \
-		/usr/local/qt5/include/QtGui/qrgb.h \
-		/usr/local/qt5/include/QtGui/qrgba64.h \
-		/usr/local/qt5/include/QtGui/qbrush.h \
-		/usr/local/qt5/include/QtGui/qmatrix.h \
-		/usr/local/qt5/include/QtGui/qpolygon.h \
-		/usr/local/qt5/include/QtGui/qregion.h \
-		/usr/local/qt5/include/QtCore/qdatastream.h \
-		/usr/local/qt5/include/QtCore/qiodevice.h \
-		/usr/local/qt5/include/QtCore/qline.h \
-		/usr/local/qt5/include/QtGui/qtransform.h \
-		/usr/local/qt5/include/QtGui/qimage.h \
-		/usr/local/qt5/include/QtGui/qpixelformat.h \
-		/usr/local/qt5/include/QtGui/qpixmap.h \
-		/usr/local/qt5/include/QtCore/qsharedpointer.h \
-		/usr/local/qt5/include/QtCore/qshareddata.h \
-		/usr/local/qt5/include/QtCore/qhash.h \
-		/usr/local/qt5/include/QtCore/qsharedpointer_impl.h \
-		/usr/local/qt5/include/QtGui/qfont.h \
-		/usr/local/qt5/include/QtGui/qfontmetrics.h \
-		/usr/local/qt5/include/QtGui/qfontinfo.h \
-		/usr/local/qt5/include/QtWidgets/qsizepolicy.h \
-		/usr/local/qt5/include/QtGui/qcursor.h \
-		/usr/local/qt5/include/QtGui/qkeysequence.h \
-		/usr/local/qt5/include/QtGui/qevent.h \
-		/usr/local/qt5/include/QtCore/qvariant.h \
-		/usr/local/qt5/include/QtCore/qmap.h \
-		/usr/local/qt5/include/QtCore/qdebug.h \
-		/usr/local/qt5/include/QtCore/qtextstream.h \
-		/usr/local/qt5/include/QtCore/qlocale.h \
-		/usr/local/qt5/include/QtCore/qset.h \
-		/usr/local/qt5/include/QtCore/qcontiguouscache.h \
-		/usr/local/qt5/include/QtCore/qurl.h \
-		/usr/local/qt5/include/QtCore/qurlquery.h \
-		/usr/local/qt5/include/QtCore/qfile.h \
-		/usr/local/qt5/include/QtCore/qfiledevice.h \
-		/usr/local/qt5/include/QtGui/qvector2d.h \
-		/usr/local/qt5/include/QtGui/qtouchdevice.h \
-		/usr/local/qt5/include/QtWidgets/QApplication \
-		/usr/local/qt5/include/QtWidgets/qapplication.h \
-		/usr/local/qt5/include/QtCore/qcoreapplication.h \
-		/usr/local/qt5/include/QtCore/qeventloop.h \
-		/usr/local/qt5/include/QtWidgets/qdesktopwidget.h \
-		/usr/local/qt5/include/QtGui/qguiapplication.h \
-		/usr/local/qt5/include/QtGui/qinputmethod.h \
-		/usr/local/qt5/include/QtWidgets/QPushButton \
-		/usr/local/qt5/include/QtWidgets/qpushbutton.h \
-		/usr/local/qt5/include/QtWidgets/qabstractbutton.h \
-		/usr/local/qt5/include/QtGui/qicon.h \
-		/usr/local/qt5/include/QtWidgets/QLabel \
-		/usr/local/qt5/include/QtWidgets/qlabel.h \
-		/usr/local/qt5/include/QtWidgets/qframe.h \
-		/usr/local/qt5/include/QtWidgets/QTextEdit \
-		/usr/local/qt5/include/QtWidgets/qtextedit.h \
-		/usr/local/qt5/include/QtWidgets/qabstractscrollarea.h \
-		/usr/local/qt5/include/QtGui/qtextdocument.h \
-		/usr/local/qt5/include/QtGui/qtextoption.h \
-		/usr/local/qt5/include/QtGui/qtextcursor.h \
-		/usr/local/qt5/include/QtGui/qtextformat.h \
-		/usr/local/qt5/include/QtGui/qpen.h \
-		/usr/local/qt5/include/QtWidgets/QGridLayout \
-		/usr/local/qt5/include/QtWidgets/qgridlayout.h \
-		/usr/local/qt5/include/QtWidgets/qlayout.h \
-		/usr/local/qt5/include/QtWidgets/qlayoutitem.h \
-		/usr/local/qt5/include/QtWidgets/qboxlayout.h \
-		/usr/local/qt5/include/QtWidgets/QMessageBox \
-		/usr/local/qt5/include/QtWidgets/qmessagebox.h \
-		/usr/local/qt5/include/QtWidgets/qdialog.h \
-		moc_predefs.h \
-		/usr/local/qt5/bin/moc
-	/usr/local/qt5/bin/moc $(DEFINES) --include '/home/huzaifa/Github Stuff/ChooseAdv/moc_predefs.h' -I/usr/local/qt5/mkspecs/linux-g++ -I'/home/huzaifa/Github Stuff/ChooseAdv' -I'/home/huzaifa/Github Stuff/ChooseAdv' -I/usr/local/qt5/include -I/usr/local/qt5/include/QtWidgets -I/usr/local/qt5/include/QtGui -I/usr/local/qt5/include/QtCore -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed -I/usr/include includes/launchScreen.hpp -o moc_launchScreen.cpp
-
+	-$(DEL_FILE) moc_gameScreen.cpp moc_launchScreen.cpp
 moc_gameScreen.cpp: includes/gameScreen.hpp \
 		includes/qtIncludes.hpp \
 		/usr/local/qt5/include/QtWidgets/QWidget \
@@ -1058,24 +919,7 @@ moc_gameScreen.cpp: includes/gameScreen.hpp \
 		/usr/local/qt5/bin/moc
 	/usr/local/qt5/bin/moc $(DEFINES) --include '/home/huzaifa/Github Stuff/ChooseAdv/moc_predefs.h' -I/usr/local/qt5/mkspecs/linux-g++ -I'/home/huzaifa/Github Stuff/ChooseAdv' -I'/home/huzaifa/Github Stuff/ChooseAdv' -I/usr/local/qt5/include -I/usr/local/qt5/include/QtWidgets -I/usr/local/qt5/include/QtGui -I/usr/local/qt5/include/QtCore -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed -I/usr/include includes/gameScreen.hpp -o moc_gameScreen.cpp
 
-compiler_moc_objc_header_make_all:
-compiler_moc_objc_header_clean:
-compiler_moc_source_make_all:
-compiler_moc_source_clean:
-compiler_uic_make_all:
-compiler_uic_clean:
-compiler_yacc_decl_make_all:
-compiler_yacc_decl_clean:
-compiler_yacc_impl_make_all:
-compiler_yacc_impl_clean:
-compiler_lex_make_all:
-compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
-
-####### Compile
-
-main.o: src/main.cpp includes/main.hpp \
-		includes/launchScreen.hpp \
+moc_launchScreen.cpp: includes/launchScreen.hpp \
 		includes/qtIncludes.hpp \
 		/usr/local/qt5/include/QtWidgets/QWidget \
 		/usr/local/qt5/include/QtWidgets/qwidget.h \
@@ -1210,147 +1054,29 @@ main.o: src/main.cpp includes/main.hpp \
 		/usr/local/qt5/include/QtWidgets/QMessageBox \
 		/usr/local/qt5/include/QtWidgets/qmessagebox.h \
 		/usr/local/qt5/include/QtWidgets/qdialog.h \
-		includes/gameScreen.hpp \
 		includes/COASt.hpp \
-		/usr/local/qt5/include/QtGui/QTextCursor
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
+		moc_predefs.h \
+		/usr/local/qt5/bin/moc
+	/usr/local/qt5/bin/moc $(DEFINES) --include '/home/huzaifa/Github Stuff/ChooseAdv/moc_predefs.h' -I/usr/local/qt5/mkspecs/linux-g++ -I'/home/huzaifa/Github Stuff/ChooseAdv' -I'/home/huzaifa/Github Stuff/ChooseAdv' -I/usr/local/qt5/include -I/usr/local/qt5/include/QtWidgets -I/usr/local/qt5/include/QtGui -I/usr/local/qt5/include/QtCore -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed -I/usr/include includes/launchScreen.hpp -o moc_launchScreen.cpp
 
-launchScreen.o: src/launchScreen.cpp includes/launchScreen.hpp \
-		includes/qtIncludes.hpp \
-		/usr/local/qt5/include/QtWidgets/QWidget \
-		/usr/local/qt5/include/QtWidgets/qwidget.h \
-		/usr/local/qt5/include/QtWidgets/qtwidgetsglobal.h \
-		/usr/local/qt5/include/QtGui/qtguiglobal.h \
-		/usr/local/qt5/include/QtCore/qglobal.h \
-		/usr/local/qt5/include/QtCore/qconfig-bootstrapped.h \
-		/usr/local/qt5/include/QtCore/qconfig.h \
-		/usr/local/qt5/include/QtCore/qtcore-config.h \
-		/usr/local/qt5/include/QtCore/qsystemdetection.h \
-		/usr/local/qt5/include/QtCore/qprocessordetection.h \
-		/usr/local/qt5/include/QtCore/qcompilerdetection.h \
-		/usr/local/qt5/include/QtCore/qtypeinfo.h \
-		/usr/local/qt5/include/QtCore/qsysinfo.h \
-		/usr/local/qt5/include/QtCore/qlogging.h \
-		/usr/local/qt5/include/QtCore/qflags.h \
-		/usr/local/qt5/include/QtCore/qatomic.h \
-		/usr/local/qt5/include/QtCore/qbasicatomic.h \
-		/usr/local/qt5/include/QtCore/qatomic_bootstrap.h \
-		/usr/local/qt5/include/QtCore/qgenericatomic.h \
-		/usr/local/qt5/include/QtCore/qatomic_cxx11.h \
-		/usr/local/qt5/include/QtCore/qatomic_msvc.h \
-		/usr/local/qt5/include/QtCore/qglobalstatic.h \
-		/usr/local/qt5/include/QtCore/qmutex.h \
-		/usr/local/qt5/include/QtCore/qnumeric.h \
-		/usr/local/qt5/include/QtCore/qversiontagging.h \
-		/usr/local/qt5/include/QtGui/qtgui-config.h \
-		/usr/local/qt5/include/QtWidgets/qtwidgets-config.h \
-		/usr/local/qt5/include/QtGui/qwindowdefs.h \
-		/usr/local/qt5/include/QtCore/qobjectdefs.h \
-		/usr/local/qt5/include/QtCore/qnamespace.h \
-		/usr/local/qt5/include/QtCore/qobjectdefs_impl.h \
-		/usr/local/qt5/include/QtGui/qwindowdefs_win.h \
-		/usr/local/qt5/include/QtCore/qobject.h \
-		/usr/local/qt5/include/QtCore/qstring.h \
-		/usr/local/qt5/include/QtCore/qchar.h \
-		/usr/local/qt5/include/QtCore/qbytearray.h \
-		/usr/local/qt5/include/QtCore/qrefcount.h \
-		/usr/local/qt5/include/QtCore/qarraydata.h \
-		/usr/local/qt5/include/QtCore/qstringliteral.h \
-		/usr/local/qt5/include/QtCore/qstringalgorithms.h \
-		/usr/local/qt5/include/QtCore/qstringview.h \
-		/usr/local/qt5/include/QtCore/qstringbuilder.h \
-		/usr/local/qt5/include/QtCore/qlist.h \
-		/usr/local/qt5/include/QtCore/qalgorithms.h \
-		/usr/local/qt5/include/QtCore/qiterator.h \
-		/usr/local/qt5/include/QtCore/qhashfunctions.h \
-		/usr/local/qt5/include/QtCore/qpair.h \
-		/usr/local/qt5/include/QtCore/qvector.h \
-		/usr/local/qt5/include/QtCore/qcontainertools_impl.h \
-		/usr/local/qt5/include/QtCore/qpoint.h \
-		/usr/local/qt5/include/QtCore/qbytearraylist.h \
-		/usr/local/qt5/include/QtCore/qstringlist.h \
-		/usr/local/qt5/include/QtCore/qregexp.h \
-		/usr/local/qt5/include/QtCore/qstringmatcher.h \
-		/usr/local/qt5/include/QtCore/qcoreevent.h \
-		/usr/local/qt5/include/QtCore/qscopedpointer.h \
-		/usr/local/qt5/include/QtCore/qmetatype.h \
-		/usr/local/qt5/include/QtCore/qvarlengtharray.h \
-		/usr/local/qt5/include/QtCore/qcontainerfwd.h \
-		/usr/local/qt5/include/QtCore/qobject_impl.h \
-		/usr/local/qt5/include/QtCore/qmargins.h \
-		/usr/local/qt5/include/QtGui/qpaintdevice.h \
-		/usr/local/qt5/include/QtCore/qrect.h \
-		/usr/local/qt5/include/QtCore/qsize.h \
-		/usr/local/qt5/include/QtGui/qpalette.h \
-		/usr/local/qt5/include/QtGui/qcolor.h \
-		/usr/local/qt5/include/QtGui/qrgb.h \
-		/usr/local/qt5/include/QtGui/qrgba64.h \
-		/usr/local/qt5/include/QtGui/qbrush.h \
-		/usr/local/qt5/include/QtGui/qmatrix.h \
-		/usr/local/qt5/include/QtGui/qpolygon.h \
-		/usr/local/qt5/include/QtGui/qregion.h \
-		/usr/local/qt5/include/QtCore/qdatastream.h \
-		/usr/local/qt5/include/QtCore/qiodevice.h \
-		/usr/local/qt5/include/QtCore/qline.h \
-		/usr/local/qt5/include/QtGui/qtransform.h \
-		/usr/local/qt5/include/QtGui/qimage.h \
-		/usr/local/qt5/include/QtGui/qpixelformat.h \
-		/usr/local/qt5/include/QtGui/qpixmap.h \
-		/usr/local/qt5/include/QtCore/qsharedpointer.h \
-		/usr/local/qt5/include/QtCore/qshareddata.h \
-		/usr/local/qt5/include/QtCore/qhash.h \
-		/usr/local/qt5/include/QtCore/qsharedpointer_impl.h \
-		/usr/local/qt5/include/QtGui/qfont.h \
-		/usr/local/qt5/include/QtGui/qfontmetrics.h \
-		/usr/local/qt5/include/QtGui/qfontinfo.h \
-		/usr/local/qt5/include/QtWidgets/qsizepolicy.h \
-		/usr/local/qt5/include/QtGui/qcursor.h \
-		/usr/local/qt5/include/QtGui/qkeysequence.h \
-		/usr/local/qt5/include/QtGui/qevent.h \
-		/usr/local/qt5/include/QtCore/qvariant.h \
-		/usr/local/qt5/include/QtCore/qmap.h \
-		/usr/local/qt5/include/QtCore/qdebug.h \
-		/usr/local/qt5/include/QtCore/qtextstream.h \
-		/usr/local/qt5/include/QtCore/qlocale.h \
-		/usr/local/qt5/include/QtCore/qset.h \
-		/usr/local/qt5/include/QtCore/qcontiguouscache.h \
-		/usr/local/qt5/include/QtCore/qurl.h \
-		/usr/local/qt5/include/QtCore/qurlquery.h \
-		/usr/local/qt5/include/QtCore/qfile.h \
-		/usr/local/qt5/include/QtCore/qfiledevice.h \
-		/usr/local/qt5/include/QtGui/qvector2d.h \
-		/usr/local/qt5/include/QtGui/qtouchdevice.h \
-		/usr/local/qt5/include/QtWidgets/QApplication \
-		/usr/local/qt5/include/QtWidgets/qapplication.h \
-		/usr/local/qt5/include/QtCore/qcoreapplication.h \
-		/usr/local/qt5/include/QtCore/qeventloop.h \
-		/usr/local/qt5/include/QtWidgets/qdesktopwidget.h \
-		/usr/local/qt5/include/QtGui/qguiapplication.h \
-		/usr/local/qt5/include/QtGui/qinputmethod.h \
-		/usr/local/qt5/include/QtWidgets/QPushButton \
-		/usr/local/qt5/include/QtWidgets/qpushbutton.h \
-		/usr/local/qt5/include/QtWidgets/qabstractbutton.h \
-		/usr/local/qt5/include/QtGui/qicon.h \
-		/usr/local/qt5/include/QtWidgets/QLabel \
-		/usr/local/qt5/include/QtWidgets/qlabel.h \
-		/usr/local/qt5/include/QtWidgets/qframe.h \
-		/usr/local/qt5/include/QtWidgets/QTextEdit \
-		/usr/local/qt5/include/QtWidgets/qtextedit.h \
-		/usr/local/qt5/include/QtWidgets/qabstractscrollarea.h \
-		/usr/local/qt5/include/QtGui/qtextdocument.h \
-		/usr/local/qt5/include/QtGui/qtextoption.h \
-		/usr/local/qt5/include/QtGui/qtextcursor.h \
-		/usr/local/qt5/include/QtGui/qtextformat.h \
-		/usr/local/qt5/include/QtGui/qpen.h \
-		/usr/local/qt5/include/QtWidgets/QGridLayout \
-		/usr/local/qt5/include/QtWidgets/qgridlayout.h \
-		/usr/local/qt5/include/QtWidgets/qlayout.h \
-		/usr/local/qt5/include/QtWidgets/qlayoutitem.h \
-		/usr/local/qt5/include/QtWidgets/qboxlayout.h \
-		/usr/local/qt5/include/QtWidgets/QMessageBox \
-		/usr/local/qt5/include/QtWidgets/qmessagebox.h \
-		/usr/local/qt5/include/QtWidgets/qdialog.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o launchScreen.o src/launchScreen.cpp
+compiler_moc_objc_header_make_all:
+compiler_moc_objc_header_clean:
+compiler_moc_source_make_all:
+compiler_moc_source_clean:
+compiler_uic_make_all:
+compiler_uic_clean:
+compiler_yacc_decl_make_all:
+compiler_yacc_decl_clean:
+compiler_yacc_impl_make_all:
+compiler_yacc_impl_clean:
+compiler_lex_make_all:
+compiler_lex_clean:
+compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
+
+####### Compile
+
+COASt.o: src/COASt.cpp includes/COASt.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o COASt.o src/COASt.cpp
 
 gameScreen.o: src/gameScreen.cpp includes/gameScreen.hpp \
 		includes/qtIncludes.hpp \
@@ -1491,14 +1217,290 @@ gameScreen.o: src/gameScreen.cpp includes/gameScreen.hpp \
 		/usr/local/qt5/include/QtGui/QTextCursor
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gameScreen.o src/gameScreen.cpp
 
-COASt.o: src/COASt.cpp includes/COASt.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o COASt.o src/COASt.cpp
+launchScreen.o: src/launchScreen.cpp includes/launchScreen.hpp \
+		includes/qtIncludes.hpp \
+		/usr/local/qt5/include/QtWidgets/QWidget \
+		/usr/local/qt5/include/QtWidgets/qwidget.h \
+		/usr/local/qt5/include/QtWidgets/qtwidgetsglobal.h \
+		/usr/local/qt5/include/QtGui/qtguiglobal.h \
+		/usr/local/qt5/include/QtCore/qglobal.h \
+		/usr/local/qt5/include/QtCore/qconfig-bootstrapped.h \
+		/usr/local/qt5/include/QtCore/qconfig.h \
+		/usr/local/qt5/include/QtCore/qtcore-config.h \
+		/usr/local/qt5/include/QtCore/qsystemdetection.h \
+		/usr/local/qt5/include/QtCore/qprocessordetection.h \
+		/usr/local/qt5/include/QtCore/qcompilerdetection.h \
+		/usr/local/qt5/include/QtCore/qtypeinfo.h \
+		/usr/local/qt5/include/QtCore/qsysinfo.h \
+		/usr/local/qt5/include/QtCore/qlogging.h \
+		/usr/local/qt5/include/QtCore/qflags.h \
+		/usr/local/qt5/include/QtCore/qatomic.h \
+		/usr/local/qt5/include/QtCore/qbasicatomic.h \
+		/usr/local/qt5/include/QtCore/qatomic_bootstrap.h \
+		/usr/local/qt5/include/QtCore/qgenericatomic.h \
+		/usr/local/qt5/include/QtCore/qatomic_cxx11.h \
+		/usr/local/qt5/include/QtCore/qatomic_msvc.h \
+		/usr/local/qt5/include/QtCore/qglobalstatic.h \
+		/usr/local/qt5/include/QtCore/qmutex.h \
+		/usr/local/qt5/include/QtCore/qnumeric.h \
+		/usr/local/qt5/include/QtCore/qversiontagging.h \
+		/usr/local/qt5/include/QtGui/qtgui-config.h \
+		/usr/local/qt5/include/QtWidgets/qtwidgets-config.h \
+		/usr/local/qt5/include/QtGui/qwindowdefs.h \
+		/usr/local/qt5/include/QtCore/qobjectdefs.h \
+		/usr/local/qt5/include/QtCore/qnamespace.h \
+		/usr/local/qt5/include/QtCore/qobjectdefs_impl.h \
+		/usr/local/qt5/include/QtGui/qwindowdefs_win.h \
+		/usr/local/qt5/include/QtCore/qobject.h \
+		/usr/local/qt5/include/QtCore/qstring.h \
+		/usr/local/qt5/include/QtCore/qchar.h \
+		/usr/local/qt5/include/QtCore/qbytearray.h \
+		/usr/local/qt5/include/QtCore/qrefcount.h \
+		/usr/local/qt5/include/QtCore/qarraydata.h \
+		/usr/local/qt5/include/QtCore/qstringliteral.h \
+		/usr/local/qt5/include/QtCore/qstringalgorithms.h \
+		/usr/local/qt5/include/QtCore/qstringview.h \
+		/usr/local/qt5/include/QtCore/qstringbuilder.h \
+		/usr/local/qt5/include/QtCore/qlist.h \
+		/usr/local/qt5/include/QtCore/qalgorithms.h \
+		/usr/local/qt5/include/QtCore/qiterator.h \
+		/usr/local/qt5/include/QtCore/qhashfunctions.h \
+		/usr/local/qt5/include/QtCore/qpair.h \
+		/usr/local/qt5/include/QtCore/qvector.h \
+		/usr/local/qt5/include/QtCore/qcontainertools_impl.h \
+		/usr/local/qt5/include/QtCore/qpoint.h \
+		/usr/local/qt5/include/QtCore/qbytearraylist.h \
+		/usr/local/qt5/include/QtCore/qstringlist.h \
+		/usr/local/qt5/include/QtCore/qregexp.h \
+		/usr/local/qt5/include/QtCore/qstringmatcher.h \
+		/usr/local/qt5/include/QtCore/qcoreevent.h \
+		/usr/local/qt5/include/QtCore/qscopedpointer.h \
+		/usr/local/qt5/include/QtCore/qmetatype.h \
+		/usr/local/qt5/include/QtCore/qvarlengtharray.h \
+		/usr/local/qt5/include/QtCore/qcontainerfwd.h \
+		/usr/local/qt5/include/QtCore/qobject_impl.h \
+		/usr/local/qt5/include/QtCore/qmargins.h \
+		/usr/local/qt5/include/QtGui/qpaintdevice.h \
+		/usr/local/qt5/include/QtCore/qrect.h \
+		/usr/local/qt5/include/QtCore/qsize.h \
+		/usr/local/qt5/include/QtGui/qpalette.h \
+		/usr/local/qt5/include/QtGui/qcolor.h \
+		/usr/local/qt5/include/QtGui/qrgb.h \
+		/usr/local/qt5/include/QtGui/qrgba64.h \
+		/usr/local/qt5/include/QtGui/qbrush.h \
+		/usr/local/qt5/include/QtGui/qmatrix.h \
+		/usr/local/qt5/include/QtGui/qpolygon.h \
+		/usr/local/qt5/include/QtGui/qregion.h \
+		/usr/local/qt5/include/QtCore/qdatastream.h \
+		/usr/local/qt5/include/QtCore/qiodevice.h \
+		/usr/local/qt5/include/QtCore/qline.h \
+		/usr/local/qt5/include/QtGui/qtransform.h \
+		/usr/local/qt5/include/QtGui/qimage.h \
+		/usr/local/qt5/include/QtGui/qpixelformat.h \
+		/usr/local/qt5/include/QtGui/qpixmap.h \
+		/usr/local/qt5/include/QtCore/qsharedpointer.h \
+		/usr/local/qt5/include/QtCore/qshareddata.h \
+		/usr/local/qt5/include/QtCore/qhash.h \
+		/usr/local/qt5/include/QtCore/qsharedpointer_impl.h \
+		/usr/local/qt5/include/QtGui/qfont.h \
+		/usr/local/qt5/include/QtGui/qfontmetrics.h \
+		/usr/local/qt5/include/QtGui/qfontinfo.h \
+		/usr/local/qt5/include/QtWidgets/qsizepolicy.h \
+		/usr/local/qt5/include/QtGui/qcursor.h \
+		/usr/local/qt5/include/QtGui/qkeysequence.h \
+		/usr/local/qt5/include/QtGui/qevent.h \
+		/usr/local/qt5/include/QtCore/qvariant.h \
+		/usr/local/qt5/include/QtCore/qmap.h \
+		/usr/local/qt5/include/QtCore/qdebug.h \
+		/usr/local/qt5/include/QtCore/qtextstream.h \
+		/usr/local/qt5/include/QtCore/qlocale.h \
+		/usr/local/qt5/include/QtCore/qset.h \
+		/usr/local/qt5/include/QtCore/qcontiguouscache.h \
+		/usr/local/qt5/include/QtCore/qurl.h \
+		/usr/local/qt5/include/QtCore/qurlquery.h \
+		/usr/local/qt5/include/QtCore/qfile.h \
+		/usr/local/qt5/include/QtCore/qfiledevice.h \
+		/usr/local/qt5/include/QtGui/qvector2d.h \
+		/usr/local/qt5/include/QtGui/qtouchdevice.h \
+		/usr/local/qt5/include/QtWidgets/QApplication \
+		/usr/local/qt5/include/QtWidgets/qapplication.h \
+		/usr/local/qt5/include/QtCore/qcoreapplication.h \
+		/usr/local/qt5/include/QtCore/qeventloop.h \
+		/usr/local/qt5/include/QtWidgets/qdesktopwidget.h \
+		/usr/local/qt5/include/QtGui/qguiapplication.h \
+		/usr/local/qt5/include/QtGui/qinputmethod.h \
+		/usr/local/qt5/include/QtWidgets/QPushButton \
+		/usr/local/qt5/include/QtWidgets/qpushbutton.h \
+		/usr/local/qt5/include/QtWidgets/qabstractbutton.h \
+		/usr/local/qt5/include/QtGui/qicon.h \
+		/usr/local/qt5/include/QtWidgets/QLabel \
+		/usr/local/qt5/include/QtWidgets/qlabel.h \
+		/usr/local/qt5/include/QtWidgets/qframe.h \
+		/usr/local/qt5/include/QtWidgets/QTextEdit \
+		/usr/local/qt5/include/QtWidgets/qtextedit.h \
+		/usr/local/qt5/include/QtWidgets/qabstractscrollarea.h \
+		/usr/local/qt5/include/QtGui/qtextdocument.h \
+		/usr/local/qt5/include/QtGui/qtextoption.h \
+		/usr/local/qt5/include/QtGui/qtextcursor.h \
+		/usr/local/qt5/include/QtGui/qtextformat.h \
+		/usr/local/qt5/include/QtGui/qpen.h \
+		/usr/local/qt5/include/QtWidgets/QGridLayout \
+		/usr/local/qt5/include/QtWidgets/qgridlayout.h \
+		/usr/local/qt5/include/QtWidgets/qlayout.h \
+		/usr/local/qt5/include/QtWidgets/qlayoutitem.h \
+		/usr/local/qt5/include/QtWidgets/qboxlayout.h \
+		/usr/local/qt5/include/QtWidgets/QMessageBox \
+		/usr/local/qt5/include/QtWidgets/qmessagebox.h \
+		/usr/local/qt5/include/QtWidgets/qdialog.h \
+		includes/COASt.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o launchScreen.o src/launchScreen.cpp
 
-moc_launchScreen.o: moc_launchScreen.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_launchScreen.o moc_launchScreen.cpp
+main.o: src/main.cpp includes/main.hpp \
+		includes/launchScreen.hpp \
+		includes/qtIncludes.hpp \
+		/usr/local/qt5/include/QtWidgets/QWidget \
+		/usr/local/qt5/include/QtWidgets/qwidget.h \
+		/usr/local/qt5/include/QtWidgets/qtwidgetsglobal.h \
+		/usr/local/qt5/include/QtGui/qtguiglobal.h \
+		/usr/local/qt5/include/QtCore/qglobal.h \
+		/usr/local/qt5/include/QtCore/qconfig-bootstrapped.h \
+		/usr/local/qt5/include/QtCore/qconfig.h \
+		/usr/local/qt5/include/QtCore/qtcore-config.h \
+		/usr/local/qt5/include/QtCore/qsystemdetection.h \
+		/usr/local/qt5/include/QtCore/qprocessordetection.h \
+		/usr/local/qt5/include/QtCore/qcompilerdetection.h \
+		/usr/local/qt5/include/QtCore/qtypeinfo.h \
+		/usr/local/qt5/include/QtCore/qsysinfo.h \
+		/usr/local/qt5/include/QtCore/qlogging.h \
+		/usr/local/qt5/include/QtCore/qflags.h \
+		/usr/local/qt5/include/QtCore/qatomic.h \
+		/usr/local/qt5/include/QtCore/qbasicatomic.h \
+		/usr/local/qt5/include/QtCore/qatomic_bootstrap.h \
+		/usr/local/qt5/include/QtCore/qgenericatomic.h \
+		/usr/local/qt5/include/QtCore/qatomic_cxx11.h \
+		/usr/local/qt5/include/QtCore/qatomic_msvc.h \
+		/usr/local/qt5/include/QtCore/qglobalstatic.h \
+		/usr/local/qt5/include/QtCore/qmutex.h \
+		/usr/local/qt5/include/QtCore/qnumeric.h \
+		/usr/local/qt5/include/QtCore/qversiontagging.h \
+		/usr/local/qt5/include/QtGui/qtgui-config.h \
+		/usr/local/qt5/include/QtWidgets/qtwidgets-config.h \
+		/usr/local/qt5/include/QtGui/qwindowdefs.h \
+		/usr/local/qt5/include/QtCore/qobjectdefs.h \
+		/usr/local/qt5/include/QtCore/qnamespace.h \
+		/usr/local/qt5/include/QtCore/qobjectdefs_impl.h \
+		/usr/local/qt5/include/QtGui/qwindowdefs_win.h \
+		/usr/local/qt5/include/QtCore/qobject.h \
+		/usr/local/qt5/include/QtCore/qstring.h \
+		/usr/local/qt5/include/QtCore/qchar.h \
+		/usr/local/qt5/include/QtCore/qbytearray.h \
+		/usr/local/qt5/include/QtCore/qrefcount.h \
+		/usr/local/qt5/include/QtCore/qarraydata.h \
+		/usr/local/qt5/include/QtCore/qstringliteral.h \
+		/usr/local/qt5/include/QtCore/qstringalgorithms.h \
+		/usr/local/qt5/include/QtCore/qstringview.h \
+		/usr/local/qt5/include/QtCore/qstringbuilder.h \
+		/usr/local/qt5/include/QtCore/qlist.h \
+		/usr/local/qt5/include/QtCore/qalgorithms.h \
+		/usr/local/qt5/include/QtCore/qiterator.h \
+		/usr/local/qt5/include/QtCore/qhashfunctions.h \
+		/usr/local/qt5/include/QtCore/qpair.h \
+		/usr/local/qt5/include/QtCore/qvector.h \
+		/usr/local/qt5/include/QtCore/qcontainertools_impl.h \
+		/usr/local/qt5/include/QtCore/qpoint.h \
+		/usr/local/qt5/include/QtCore/qbytearraylist.h \
+		/usr/local/qt5/include/QtCore/qstringlist.h \
+		/usr/local/qt5/include/QtCore/qregexp.h \
+		/usr/local/qt5/include/QtCore/qstringmatcher.h \
+		/usr/local/qt5/include/QtCore/qcoreevent.h \
+		/usr/local/qt5/include/QtCore/qscopedpointer.h \
+		/usr/local/qt5/include/QtCore/qmetatype.h \
+		/usr/local/qt5/include/QtCore/qvarlengtharray.h \
+		/usr/local/qt5/include/QtCore/qcontainerfwd.h \
+		/usr/local/qt5/include/QtCore/qobject_impl.h \
+		/usr/local/qt5/include/QtCore/qmargins.h \
+		/usr/local/qt5/include/QtGui/qpaintdevice.h \
+		/usr/local/qt5/include/QtCore/qrect.h \
+		/usr/local/qt5/include/QtCore/qsize.h \
+		/usr/local/qt5/include/QtGui/qpalette.h \
+		/usr/local/qt5/include/QtGui/qcolor.h \
+		/usr/local/qt5/include/QtGui/qrgb.h \
+		/usr/local/qt5/include/QtGui/qrgba64.h \
+		/usr/local/qt5/include/QtGui/qbrush.h \
+		/usr/local/qt5/include/QtGui/qmatrix.h \
+		/usr/local/qt5/include/QtGui/qpolygon.h \
+		/usr/local/qt5/include/QtGui/qregion.h \
+		/usr/local/qt5/include/QtCore/qdatastream.h \
+		/usr/local/qt5/include/QtCore/qiodevice.h \
+		/usr/local/qt5/include/QtCore/qline.h \
+		/usr/local/qt5/include/QtGui/qtransform.h \
+		/usr/local/qt5/include/QtGui/qimage.h \
+		/usr/local/qt5/include/QtGui/qpixelformat.h \
+		/usr/local/qt5/include/QtGui/qpixmap.h \
+		/usr/local/qt5/include/QtCore/qsharedpointer.h \
+		/usr/local/qt5/include/QtCore/qshareddata.h \
+		/usr/local/qt5/include/QtCore/qhash.h \
+		/usr/local/qt5/include/QtCore/qsharedpointer_impl.h \
+		/usr/local/qt5/include/QtGui/qfont.h \
+		/usr/local/qt5/include/QtGui/qfontmetrics.h \
+		/usr/local/qt5/include/QtGui/qfontinfo.h \
+		/usr/local/qt5/include/QtWidgets/qsizepolicy.h \
+		/usr/local/qt5/include/QtGui/qcursor.h \
+		/usr/local/qt5/include/QtGui/qkeysequence.h \
+		/usr/local/qt5/include/QtGui/qevent.h \
+		/usr/local/qt5/include/QtCore/qvariant.h \
+		/usr/local/qt5/include/QtCore/qmap.h \
+		/usr/local/qt5/include/QtCore/qdebug.h \
+		/usr/local/qt5/include/QtCore/qtextstream.h \
+		/usr/local/qt5/include/QtCore/qlocale.h \
+		/usr/local/qt5/include/QtCore/qset.h \
+		/usr/local/qt5/include/QtCore/qcontiguouscache.h \
+		/usr/local/qt5/include/QtCore/qurl.h \
+		/usr/local/qt5/include/QtCore/qurlquery.h \
+		/usr/local/qt5/include/QtCore/qfile.h \
+		/usr/local/qt5/include/QtCore/qfiledevice.h \
+		/usr/local/qt5/include/QtGui/qvector2d.h \
+		/usr/local/qt5/include/QtGui/qtouchdevice.h \
+		/usr/local/qt5/include/QtWidgets/QApplication \
+		/usr/local/qt5/include/QtWidgets/qapplication.h \
+		/usr/local/qt5/include/QtCore/qcoreapplication.h \
+		/usr/local/qt5/include/QtCore/qeventloop.h \
+		/usr/local/qt5/include/QtWidgets/qdesktopwidget.h \
+		/usr/local/qt5/include/QtGui/qguiapplication.h \
+		/usr/local/qt5/include/QtGui/qinputmethod.h \
+		/usr/local/qt5/include/QtWidgets/QPushButton \
+		/usr/local/qt5/include/QtWidgets/qpushbutton.h \
+		/usr/local/qt5/include/QtWidgets/qabstractbutton.h \
+		/usr/local/qt5/include/QtGui/qicon.h \
+		/usr/local/qt5/include/QtWidgets/QLabel \
+		/usr/local/qt5/include/QtWidgets/qlabel.h \
+		/usr/local/qt5/include/QtWidgets/qframe.h \
+		/usr/local/qt5/include/QtWidgets/QTextEdit \
+		/usr/local/qt5/include/QtWidgets/qtextedit.h \
+		/usr/local/qt5/include/QtWidgets/qabstractscrollarea.h \
+		/usr/local/qt5/include/QtGui/qtextdocument.h \
+		/usr/local/qt5/include/QtGui/qtextoption.h \
+		/usr/local/qt5/include/QtGui/qtextcursor.h \
+		/usr/local/qt5/include/QtGui/qtextformat.h \
+		/usr/local/qt5/include/QtGui/qpen.h \
+		/usr/local/qt5/include/QtWidgets/QGridLayout \
+		/usr/local/qt5/include/QtWidgets/qgridlayout.h \
+		/usr/local/qt5/include/QtWidgets/qlayout.h \
+		/usr/local/qt5/include/QtWidgets/qlayoutitem.h \
+		/usr/local/qt5/include/QtWidgets/qboxlayout.h \
+		/usr/local/qt5/include/QtWidgets/QMessageBox \
+		/usr/local/qt5/include/QtWidgets/qmessagebox.h \
+		/usr/local/qt5/include/QtWidgets/qdialog.h \
+		includes/COASt.hpp \
+		includes/gameScreen.hpp \
+		/usr/local/qt5/include/QtGui/QTextCursor
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 moc_gameScreen.o: moc_gameScreen.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_gameScreen.o moc_gameScreen.cpp
+
+moc_launchScreen.o: moc_launchScreen.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_launchScreen.o moc_launchScreen.cpp
 
 ####### Install
 
